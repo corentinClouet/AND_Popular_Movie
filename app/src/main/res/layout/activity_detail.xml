@@ -1,86 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".activities.DetailActivity">
 
-    <ImageView
-        android:id="@+id/iv_detail_wallpaper"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:scaleType="centerCrop"/>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="45dp"
+        tools:layout_editor_absoluteY="450dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tv_detail_title"
+                android:id="@+id/title_textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryLight"
+                android:gravity="center_vertical"
+                android:paddingBottom="16dp"
+                android:paddingLeft="24dp"
+                android:paddingTop="16dp"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Chappie" />
+
+            <ImageView
+                android:id="@+id/poster_imageView"
+                android:layout_width="157dp"
+                android:layout_height="209dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title_textView"
+                app:srcCompat="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/year_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimaryText"
-                android:textAllCaps="true"
-                android:textSize="20sp"/>
+                android:layout_marginLeft="32dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/poster_imageView"
+                app:layout_constraintTop_toTopOf="@+id/poster_imageView"
+                tools:text="2015" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/rate_textView"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp">
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/year_textView"
+                app:layout_constraintTop_toBottomOf="@+id/year_textView"
+                tools:text="8/10" />
 
-                <ImageView
-                    android:layout_width="@dimen/icon_size"
-                    android:layout_height="@dimen/icon_size"
-                    android:layout_marginRight="8dp"
-                    android:src="@drawable/calendar" />
-
-                <TextView
-                    android:id="@+id/tv_detail_release_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="32dp"/>
-
-                <ImageView
-                    android:layout_width="@dimen/icon_size"
-                    android:layout_height="@dimen/icon_size"
-                    android:layout_marginRight="8dp"
-                    android:src="@drawable/star"/>
-
-                <TextView
-                    android:id="@+id/tv_detail_vote"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"/>
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tv_detail_synopsis_label"
+            <Button
+                android:id="@+id/favorite_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="@string/synopsis_label"
-                android:textColor="@color/colorPrimaryText"
-                android:textSize="16sp"/>
+                android:layout_marginTop="16dp"
+                android:background="@color/colorPrimaryLight"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/rate_textView"
+                app:layout_constraintTop_toBottomOf="@+id/rate_textView"
+                tools:text="Mark as favorite" />
 
             <TextView
-                android:id="@+id/tv_detail_synopsis"
+                android:id="@+id/synopsis_textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:autoText="false"
+                android:ellipsize="end"
+                android:maxLines="8"
+                android:text="TextView"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/poster_imageView"
+                tools:ellipsize="end" />
+
+            <TextView
+                android:id="@+id/video_label_textview"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/video_label"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/synopsis_textView"
+                app:layout_constraintTop_toBottomOf="@+id/synopsis_textView"
+                tools:text="VIDEOS" />
 
-        </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/video_recyclerView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/video_label_textview"
+                app:layout_constraintTop_toBottomOf="@+id/video_label_textview">
 
+            </android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/review_label_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/review_label"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/video_recyclerView"
+                app:layout_constraintTop_toBottomOf="@+id/video_recyclerView"
+                tools:text="REVIEWS" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/review_recyclerView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/review_label_textView"
+                app:layout_constraintTop_toBottomOf="@+id/review_label_textView" />
+
+        </android.support.constraint.ConstraintLayout>
     </ScrollView>
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

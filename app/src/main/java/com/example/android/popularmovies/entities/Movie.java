@@ -1,10 +1,17 @@
 package com.example.android.popularmovies.entities;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+@Entity(tableName = "favorite")
 public class Movie implements Parcelable {
 
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+    private int movieId;
     private String title;
     private String releaseDate;
     private String posterUrl;
@@ -12,16 +19,35 @@ public class Movie implements Parcelable {
     private double voteAverage;
     private String synopsis;
 
-    public Movie() {
-    }
-
-    public Movie(String title, String releaseDate, String posterUrl, String wallpaperUrl, double voteAverage, String synopsis) {
+    public Movie(int id, int movieId, String title, String releaseDate, String posterUrl, String wallpaperUrl, double voteAverage, String synopsis) {
+        this.id = id;
+        this.movieId = movieId;
         this.title = title;
         this.releaseDate = releaseDate;
         this.posterUrl = posterUrl;
         this.wallpaperUrl = wallpaperUrl;
         this.voteAverage = voteAverage;
         this.synopsis = synopsis;
+    }
+
+    @Ignore
+    public Movie() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
     }
 
     public String getTitle() {
@@ -79,6 +105,8 @@ public class Movie implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeInt(this.movieId);
         dest.writeString(this.title);
         dest.writeString(this.releaseDate);
         dest.writeString(this.posterUrl);
@@ -88,6 +116,8 @@ public class Movie implements Parcelable {
     }
 
     protected Movie(Parcel in) {
+        this.id = in.readInt();
+        this.movieId = in.readInt();
         this.title = in.readString();
         this.releaseDate = in.readString();
         this.posterUrl = in.readString();
@@ -96,7 +126,7 @@ public class Movie implements Parcelable {
         this.synopsis = in.readString();
     }
 
-    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
         @Override
         public Movie createFromParcel(Parcel source) {
             return new Movie(source);

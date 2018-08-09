@@ -17,6 +17,7 @@ package com.example.android.popularmovies.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -41,6 +42,7 @@ import static java.security.AccessController.getContext;
  */
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapterViewHolder> {
 
+    private static final String TAG = MovieAdapter.class.getSimpleName();
     private List<Movie> mLstMovie;
     private final MovieAdapterOnClickHandler mClickHandler;
     private Context mContext;
@@ -153,6 +155,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
      * @param lstMovie The new movie list to be displayed.
      */
     public void refreshData(List<Movie> lstMovie) {
+        Log.d(TAG, "Refresh data");
         this.mLstMovie = lstMovie;
         notifyDataSetChanged();
     }

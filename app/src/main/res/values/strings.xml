@@ -21,8 +21,18 @@
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Label for sort-by favorite option [CHAR LIMIT=20] -->
+    <string name="settings_sort_by_favorite_label">Favorite</string>
+    <string name="settings_sort_by_favorite_value" translatable="false">favorite</string>
+
     <!-- Labels for Detail Activity -->
     <string name="release_date_label">Release date</string>
     <string name="vote_label" translatable="false">Average vote</string>
     <string name="synopsis_label">Synopsis</string>
+    <string name="video_label">VIDEOS</string>
+    <string name="review_label">REVIEWS</string>
+
+    <!-- Labels for Favorite Button -->
+    <string name="favorite_label">Favorite</string>
+    <string name="unfavorite_label">Mark as favorite</string>
 </resources>

@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.android.popularmovies.entities.Movie;
+import com.example.android.popularmovies.entities.Review;
+import com.example.android.popularmovies.entities.Video;
 import com.example.android.popularmovies.utilities.MovieJsonUtils;
 import com.example.android.popularmovies.utilities.NetworkUtils;
 
@@ -16,20 +18,21 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieLoader extends AsyncTaskLoader<List<Movie>>{
+public class ReviewLoader extends AsyncTaskLoader<List<Review>>{
 
-    private static final String LOG_TAG = MovieLoader.class.getName(); //tag for log messages
-    private String mSortBy; //sort parameter
+    private static final String LOG_TAG = ReviewLoader.class.getName(); //tag for log messages
+    private int mMovieId; //movie's id
+    private static final int ID_ERROR = -1;
 
     /**
-     * Constructs a new {@link MovieLoader}.
+     * Constructs a new {@link ReviewLoader}.
      *
      * @param context of the activity
-     * @param sortBy to know how to sort data
+     * @param movieId to know what the movie to request
      */
-    public MovieLoader(Context context, String sortBy) {
+    public ReviewLoader(Context context, int movieId) {
         super(context);
-        mSortBy = sortBy;
+        mMovieId = movieId;
     }
 
     @Override
@@ -41,20 +44,20 @@ public class MovieLoader extends AsyncTaskLoader<List<Movie>>{
      * This is on a background thread.
      */
     @Override
-    public List<Movie> loadInBackground() {
+    public List<Review> loadInBackground() {
 
         Log.d(LOG_TAG, "loadInBackground");
 
         String resultJson = null;
-        List<Movie> result = new ArrayList<>();
+        List<Review> result = new ArrayList<>();
 
-        //if we don't have a sort parameter then return
-        if (mSortBy == null) {
+        //if we don't have a movieId parameter then return
+        if (mMovieId == ID_ERROR) {
             return null;
         }
 
         //init the query
-        URL query = NetworkUtils.buildGlobalUrl(mSortBy);
+        URL query = NetworkUtils.buildReviewUrl(mMovieId);
         try {
             //get the JSON results
             resultJson = NetworkUtils.getResponseFromHttpUrl(query);
@@ -65,13 +68,13 @@ public class MovieLoader extends AsyncTaskLoader<List<Movie>>{
         //if we have a JSON result
         if (resultJson != null) {
             try {
-                //parse the JSON et return an ArrayList of movies
-                result = MovieJsonUtils.parseMovieJsonResponse(getContext(),resultJson);
+                //parse the JSON et return an ArrayList of reviews
+                result = MovieJsonUtils.parseReviewJsonResponse(getContext(),resultJson);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-        //return an ArrayList of movies (empty if we have an error)
+        //return an ArrayList of reviews (empty if we have an error)
         return result;
     }
 }

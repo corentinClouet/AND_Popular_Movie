@@ -34,7 +34,9 @@ public final class NetworkUtils {
     private static final String MOVIE_BASE_URL = "http://api.themoviedb.org/3/movie/";
     //TODO fill the KEYAPI variable
     private static final String KEYAPI = "";
-    final static String API_KEY = "api_key";
+    private final static String API_KEY_PARAM = "api_key";
+    private final static String API_VIDEO_PARAM = "/videos";
+    private final static String API_REVIEW_PARAM = "/reviews";
 
     /**
      * Builds the URL used to talk to the themoviedb server using a sort.
@@ -42,9 +44,9 @@ public final class NetworkUtils {
      * @param sortBy The sort that will be queried for.
      * @return The URL to use to query the themoviedb server.
      */
-    public static URL buildUrl(String sortBy) {
+    public static URL buildGlobalUrl(String sortBy) {
         Uri builtUri = Uri.parse(MOVIE_BASE_URL + sortBy).buildUpon()
-                .appendQueryParameter(API_KEY, KEYAPI)
+                .appendQueryParameter(API_KEY_PARAM, KEYAPI)
                 .build();
 
         URL url = null;
@@ -54,8 +56,51 @@ public final class NetworkUtils {
             e.printStackTrace();
         }
 
-        Log.v(TAG, "Built URI " + url);
+        Log.v(TAG, "Built global URI " + url);
+        return url;
+    }
 
+    /**
+     * Builds the URL used to talk to the themoviedb server using a movie id.
+     *
+     * @param movieId The id of the movie to request
+     * @return The URL to use to query the videos of the movie.
+     */
+    public static URL buildVideoUrl(int movieId) {
+        Uri builtUri = Uri.parse(MOVIE_BASE_URL + movieId + API_VIDEO_PARAM).buildUpon()
+                .appendQueryParameter(API_KEY_PARAM, KEYAPI)
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        Log.v(TAG, "Built video URI " + url);
+        return url;
+    }
+
+    /**
+     * Builds the URL used to talk to the themoviedb server using a movie id.
+     *
+     * @param movieId The id of the movie to request
+     * @return The URL to use to query the videos of the movie.
+     */
+    public static URL buildReviewUrl(int movieId) {
+        Uri builtUri = Uri.parse(MOVIE_BASE_URL + movieId + API_REVIEW_PARAM).buildUpon()
+                .appendQueryParameter(API_KEY_PARAM, KEYAPI)
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        Log.v(TAG, "Built review URI " + url);
         return url;
     }
 
