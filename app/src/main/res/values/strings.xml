@@ -31,6 +31,7 @@
     <string name="synopsis_label">Synopsis</string>
     <string name="video_label">VIDEOS</string>
     <string name="review_label">REVIEWS</string>
+    <string name="global_note">/10</string>
 
     <!-- Labels for Favorite Button -->
     <string name="favorite_label">Favorite</string>

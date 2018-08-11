@@ -10,7 +10,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.net.HttpURLConnection;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public final class MovieJsonUtils {
@@ -47,7 +50,7 @@ public final class MovieJsonUtils {
             //set the temporary objects with returned values
             tmpMovie.setMovieId(movieObject.getInt("id"));
             tmpMovie.setTitle(movieObject.getString("title"));
-            tmpMovie.setReleaseDate(movieObject.getString("release_date"));
+            tmpMovie.setReleaseDate(formatDate(movieObject.getString("release_date")));
             tmpMovie.setPosterUrl(BASE_THUMBNAIL_URL + movieObject.getString("poster_path"));
             tmpMovie.setWallpaperUrl(BASE_WALLPAPER_URL + movieObject.getString("backdrop_path"));
             tmpMovie.setVoteAverage(movieObject.getDouble("vote_average"));
@@ -58,6 +61,20 @@ public final class MovieJsonUtils {
         }
 
         return lstMovie;
+    }
+
+    private static String formatDate(String dte){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+        Date newDate = null;
+        try {
+            newDate = format.parse(dte);
+            format = new SimpleDateFormat("dd MMM yyyy");
+            String date = format.format(newDate);
+            return date;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
