@@ -23,16 +23,14 @@
 
         <activity
             android:name=".activities.SettingsActivity"
-            android:label="@string/settings_menu_title"
-            android:screenOrientation="portrait">
+            android:label="@string/settings_menu_title">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
         </activity>
 
         <activity
-            android:name=".activities.DetailActivity"
-            android:screenOrientation="portrait">
+            android:name=".activities.DetailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />

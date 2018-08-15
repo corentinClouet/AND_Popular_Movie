@@ -9,8 +9,7 @@ import android.os.Parcelable;
 @Entity(tableName = "favorite")
 public class Movie implements Parcelable {
 
-    @PrimaryKey(autoGenerate = true)
-    private int id;
+    @PrimaryKey
     private int movieId;
     private String title;
     private String releaseDate;
@@ -19,8 +18,7 @@ public class Movie implements Parcelable {
     private double voteAverage;
     private String synopsis;
 
-    public Movie(int id, int movieId, String title, String releaseDate, String posterUrl, String wallpaperUrl, double voteAverage, String synopsis) {
-        this.id = id;
+    public Movie(int movieId, String title, String releaseDate, String posterUrl, String wallpaperUrl, double voteAverage, String synopsis) {
         this.movieId = movieId;
         this.title = title;
         this.releaseDate = releaseDate;
@@ -32,14 +30,6 @@ public class Movie implements Parcelable {
 
     @Ignore
     public Movie() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getMovieId() {
@@ -105,7 +95,6 @@ public class Movie implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.id);
         dest.writeInt(this.movieId);
         dest.writeString(this.title);
         dest.writeString(this.releaseDate);
@@ -116,7 +105,6 @@ public class Movie implements Parcelable {
     }
 
     protected Movie(Parcel in) {
-        this.id = in.readInt();
         this.movieId = in.readInt();
         this.title = in.readString();
         this.releaseDate = in.readString();

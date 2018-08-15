@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -50,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final String FAVORITE_SETTING = "favorite";
-    private static final int NB_COLUMNS = 3;
     private static final int TMDB_LOADER_ID = 1;
 
     @Override
@@ -75,7 +75,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mErrorMessageDisplay = (TextView) findViewById(R.id.tv_empty_view);
 
         //set the layoutManager attached to our recyclerView
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), NB_COLUMNS);
+        int nbColumns = calculateNoOfColumns(this);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), nbColumns);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setHasFixedSize(true);
 
@@ -106,14 +107,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         }
         else
         {
-            if(getSortByPreference().equals(FAVORITE_SETTING)){
-                /*//use linearLayout to display the title of films because we can't have the poster
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-                mRecyclerView.setLayoutManager(linearLayoutManager);
-
-                mDb = AppDatabase.getInstance(getApplicationContext());
-                setupViewModel();*/
-            }
             // Hide loading indicator because there is not internet connection
             mLoadingIndicator.setVisibility(View.GONE);
             // Set empty state view to display "No internet connection."
@@ -196,6 +189,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         });
         // Hide loading indicator because the data are update
         mLoadingIndicator.setVisibility(View.GONE);
+    }
+
+    public static int calculateNoOfColumns(Context context) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+        int scalingFactor = 100;
+        int noOfColumns = (int) (dpWidth / scalingFactor);
+        if(noOfColumns < 2)
+            noOfColumns = 2;
+        return noOfColumns;
     }
 }
 

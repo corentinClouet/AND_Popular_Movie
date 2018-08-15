@@ -18,7 +18,7 @@ public interface MovieDao {
     @Query("SELECT * FROM favorite")
     LiveData<List<Movie>> loadAllMovies();
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertMovie(Movie movieEntry);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
@@ -27,9 +27,6 @@ public interface MovieDao {
     @Delete
     void deleteMovie(Movie movieEntry);
 
-    @Query("SELECT * FROM favorite WHERE id = :id")
-    LiveData<Movie> loadTaskById(int id);
-
-    @Query("SELECT COUNT(id) FROM favorite WHERE movieId = :id")
+    @Query("SELECT COUNT(movieId) FROM favorite WHERE movieId = :id")
     int getNbMovie(int id);
 }
